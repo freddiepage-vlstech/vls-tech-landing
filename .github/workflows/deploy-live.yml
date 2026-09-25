@@ -17,4 +17,4 @@ jobs:
         with:
           workload_identity_provider: projects/23682612565/locations/global/workloadIdentityPools/github/providers/vls-tech-landing
           service_account: github-action-1354847428@vls-tech-landing.iam.gserviceaccount.com
-      - run: npx firebase-tools@latest deploy --only hosting --project vls-tech-landing --non-interactive --debug
+      - run: npx firebase-tools@latest deploy --only hosting --project vls-tech-landing --non-interactive
