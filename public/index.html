@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritas Logic Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b1120;
+    }
+    #vls-root {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0b1120;
+      color: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      box-sizing: border-box;
+      line-height: 1.6;
+    }
+    .vls-container {
+      max-width: 1080px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+    }
+    .vls-badge {
+      display: inline-block;
+      background: rgba(14, 116, 144, 0.28);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      margin-bottom: 24px;
+    }
+    .vls-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .vls-title span {
+      color: #38bdf8;
+    }
+    .vls-subtitle {
+      max-width: 820px;
+      font-size: 1.08rem;
+      color: #94a3b8;
+      margin-bottom: 48px;
+      line-height: 1.65;
+    }
+    .vls-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+    .vls-card {
+      background: #111a2e;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 32px 26px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+    }
+    .vls-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+    .vls-card p {
+      font-size: 0.94rem;
+      color: #94a3b8;
+      line-height: 1.65;
+    }
+    .vls-footer-box {
+      max-width: 660px;
+      width: 100%;
+      background: #111a2e;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 24px 30px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+    }
+    .vls-footer-box .inquiry-label {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    .vls-footer-box .email-link {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+    .vls-footer-box .copyright {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 14px;
+    }
+    @media (max-width: 880px) {
+      .vls-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .vls-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="vls-root">
+    <div class="vls-container">
+      <div class="vls-badge">SITE LAUNCHING FALL 2026</div>
+      <h1 class="vls-title">VERITAS <span>LOGIC</span> SYSTEMS</h1>
+      <p class="vls-subtitle">
+        Partnering with enterprise leaders to modernize software delivery, optimize enterprise architecture, and turn emerging generative technology into measurable operational ROI.
+      </p>
+      <div class="vls-cards-grid">
+        <div class="vls-card">
+          <h3>Enterprise Architecture</h3>
+          <p>Aligning executive strategic vision with resilient system architecture, cloud-native migration patterns, and sustainable technical governance.</p>
+        </div>
+        <div class="vls-card">
+          <h3>GenAI &amp; SDLC Automation</h3>
+          <p>Integrating practical generative AI developer tooling, agentic workflows, and engineering productivity frameworks directly into delivery pipelines.</p>
+        </div>
+        <div class="vls-card">
+          <h3>Operating Model Strategy</h3>
+          <p>Structuring engineering organizations, streamlining vendor ecosystems, and driving disciplined operational cost optimization without sacrificing velocity.</p>
+        </div>
+      </div>
+      <div class="vls-footer-box">
+        <div class="inquiry-label">For direct advisory and consulting inquiries:</div>
+        <a href="mailto:freddiepage@vls-tech.com" class="email-link">freddiepage@vls-tech.com</a>
+        <div class="copyright">© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
