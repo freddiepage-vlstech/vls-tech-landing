@@ -1,161 +1,289 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Veritas Logic Systems</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #0b1120;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veritas Logic Systems | Fractional CTO for Growing Companies</title>
+<meta name="description" content="Fractional CTO and Head of Enterprise Engineering for small and mid-sized businesses and PE-backed companies. Technology assessments, fractional leadership, and AI-native software builds. Greenville, SC.">
+<meta property="og:title" content="Veritas Logic Systems | Fractional CTO">
+<meta property="og:description" content="Senior technology leadership without the full-time hire.">
+<meta property="og:url" content="https://vls-tech.com">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --ink: #14202e;
+    --muted: #55606d;
+    --line: #e4e1da;
+    --accent: #b5652b;
+    --accent-ink: #ffffff;
+    --navy: #14202e;
+    --navy-ink: #f3f1ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161e;
+      --surface: #17202b;
+      --ink: #eceae5;
+      --muted: #a3acb7;
+      --line: #27323f;
+      --accent: #e0915a;
+      --accent-ink: #10161e;
+      --navy: #0b1017;
+      --navy-ink: #eceae5;
     }
-    #vls-root {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #0b1120;
-      color: #94a3b8;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-      box-sizing: border-box;
-      line-height: 1.6;
-    }
-    .vls-container {
-      max-width: 1080px;
-      width: 100%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0 auto;
-    }
-    .vls-badge {
-      display: inline-block;
-      background: rgba(14, 116, 144, 0.28);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: #38bdf8;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 6px 18px;
-      border-radius: 9999px;
-      margin-bottom: 24px;
-    }
-    .vls-title {
-      font-size: 3rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-    }
-    .vls-title span {
-      color: #38bdf8;
-    }
-    .vls-subtitle {
-      max-width: 820px;
-      font-size: 1.08rem;
-      color: #94a3b8;
-      margin-bottom: 48px;
-      line-height: 1.65;
-    }
-    .vls-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      width: 100%;
-      margin-bottom: 36px;
-      text-align: left;
-    }
-    .vls-card {
-      background: #111a2e;
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 32px 26px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
-    }
-    .vls-card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 14px;
-    }
-    .vls-card p {
-      font-size: 0.94rem;
-      color: #94a3b8;
-      line-height: 1.65;
-    }
-    .vls-footer-box {
-      max-width: 660px;
-      width: 100%;
-      background: #111a2e;
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 24px 30px;
-      text-align: center;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
-    }
-    .vls-footer-box .inquiry-label {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      margin-bottom: 8px;
-    }
-    .vls-footer-box .email-link {
-      color: #38bdf8;
-      font-weight: 700;
-      font-size: 1.05rem;
-      text-decoration: none;
-    }
-    .vls-footer-box .copyright {
-      font-size: 0.8rem;
-      color: #64748b;
-      margin-top: 14px;
-    }
-    @media (max-width: 880px) {
-      .vls-cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .vls-title {
-        font-size: 2.2rem;
-      }
-    }
-  </style>
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 400 17px/1.6 Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; line-height: 1.15; margin: 0; }
+  h1 { font-size: clamp(2.3rem, 5.5vw, 3.8rem); letter-spacing: -0.01em; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); margin-bottom: 12px; }
+  h3 { font-size: 1.3rem; }
+  .eyebrow { font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; }
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+
+  /* Nav */
+  nav { padding: 22px 0; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.15rem; text-decoration: none; letter-spacing: .02em; }
+  .brand span { color: var(--accent); }
+  .navlinks { display: flex; gap: 24px; font-size: .95rem; }
+  .navlinks a { text-decoration: none; color: var(--muted); }
+  .navlinks a:hover { color: var(--ink); }
+  @media (max-width: 720px) { .navlinks { display: none; } }
+
+  /* Buttons */
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 6px; font-weight: 600; font-size: .98rem; text-decoration: none; border: 1.5px solid var(--ink); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { opacity: .88; }
+
+  /* Hero */
+  .hero { padding: 72px 0 96px; border-top: none; }
+  .hero .lede { margin-top: 22px; }
+
+  /* Audience */
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
+  .who { padding-top: 20px; border-top: 2px solid var(--accent); }
+  .who h3 { margin-bottom: 8px; }
+  .who p { margin: 0; color: var(--muted); }
+
+  /* Offers */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 28px; display: flex; flex-direction: column; }
+  .tag { font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 6px 0 14px; }
+  .card p { margin: 0 0 14px; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .card li { margin-bottom: 6px; }
+
+  /* Process */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; counter-reset: step; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step::before { counter-increment: step; content: "0" counter(step); font-family: Fraunces, Georgia, serif; font-size: 2rem; color: var(--accent); display: block; margin-bottom: 8px; }
+  .step p { color: var(--muted); margin: 8px 0 0; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 28px; } }
+  .headshot { display: block; width: 100%; max-width: 300px; height: auto; border-radius: 10px; margin-top: 24px; }
+  .creds { list-style: none; padding: 0; margin: 24px 0 0; }
+  .creds li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .95rem; color: var(--muted); }
+  .about p { margin: 0 0 16px; }
+
+  /* Writing */
+  .writing { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 32px; margin-top: 32px; }
+  .writing p { color: var(--muted); margin: 10px 0 0; }
+
+  /* Contact */
+  .contact { background: var(--navy); color: var(--navy-ink); border-top: none; }
+  .contact .lede { color: color-mix(in srgb, var(--navy-ink) 75%, transparent); }
+  .contact .btn { border-color: var(--navy-ink); }
+  footer { padding: 28px 0; font-size: .88rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
 </head>
 <body>
-  <div id="vls-root">
-    <div class="vls-container">
-      <div class="vls-badge">SITE LAUNCHING FALL 2026</div>
-      <h1 class="vls-title">VERITAS <span>LOGIC</span> SYSTEMS</h1>
-      <p class="vls-subtitle">
-        Partnering with enterprise leaders to modernize software delivery, optimize enterprise architecture, and turn emerging generative technology into measurable operational ROI.
-      </p>
-      <div class="vls-cards-grid">
-        <div class="vls-card">
-          <h3>Enterprise Architecture</h3>
-          <p>Aligning executive strategic vision with resilient system architecture, cloud-native migration patterns, and sustainable technical governance.</p>
-        </div>
-        <div class="vls-card">
-          <h3>GenAI &amp; SDLC Automation</h3>
-          <p>Integrating practical generative AI developer tooling, agentic workflows, and engineering productivity frameworks directly into delivery pipelines.</p>
-        </div>
-        <div class="vls-card">
-          <h3>Operating Model Strategy</h3>
-          <p>Structuring engineering organizations, streamlining vendor ecosystems, and driving disciplined operational cost optimization without sacrificing velocity.</p>
-        </div>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#">Veritas Logic Systems<span>.</span></a>
+    <div class="navlinks">
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Fractional CTO · Head of Enterprise Engineering</div>
+    <h1>Senior technology leadership,<br>without the full-time hire.</h1>
+    <p class="lede">I help small and mid-sized businesses and PE-backed companies make better technology decisions, stop overpaying for software that doesn't fit, and put AI to work on real operational problems.</p>
+    <div class="btns">
+      <!-- TODO: replace with your Calendly / Cal.com link -->
+      <a class="btn primary" href="https://calendly.com/YOUR-LINK/intro">Book a 30-minute intro call</a>
+      <a class="btn" href="#services">See how I help</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Who I work with</div>
+    <h2>Companies that need a CTO's judgment, not a CTO's salary.</h2>
+    <div class="grid3">
+      <div class="who">
+        <h3>Growing businesses</h3>
+        <p>You've outgrown "the IT person," but a full-time technology executive doesn't make sense yet.</p>
       </div>
-      <div class="vls-footer-box">
-        <div class="inquiry-label">For direct advisory and consulting inquiries:</div>
-        <a href="mailto:freddiepage@vls-tech.com" class="email-link">freddiepage@vls-tech.com</a>
-        <div class="copyright">© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</div>
+      <div class="who">
+        <h3>PE portfolio companies</h3>
+        <p>You need a clear read on the technology you bought, and a plan for the first 100 days and beyond.</p>
+      </div>
+      <div class="who">
+        <h3>Leaders stuck with SaaS that doesn't fit</h3>
+        <p>You're paying more every year for software your team works around rather than with.</p>
       </div>
     </div>
   </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">Services</div>
+    <h2>Three ways to work together.</h2>
+    <p class="lede">Each one is scoped up front, so you know what you're getting and what it costs before we start.</p>
+    <div class="grid3">
+      <div class="card">
+        <h3>Technology &amp; AI Assessment</h3>
+        <div class="tag">Fixed scope · 2–4 weeks</div>
+        <p>An independent, plain-English view of where your technology stands and what to do next.</p>
+        <ul>
+          <li>Review of systems, vendors, and spend</li>
+          <li>Security and operational risk gaps</li>
+          <li>Where AI will and won't pay off for you</li>
+          <li>Prioritized 12-month roadmap with costs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Fractional CTO</h3>
+        <div class="tag">Monthly retainer</div>
+        <p>Ongoing technology leadership for a set number of days a month, embedded with your team.</p>
+        <ul>
+          <li>Technology strategy and roadmap</li>
+          <li>Vendor selection and contract management</li>
+          <li>Architecture and build-vs-buy decisions</li>
+          <li>Leading internal or outsourced teams</li>
+          <li>Reporting to owners and boards</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>AI-Native Build Pilot</h3>
+        <div class="tag">Fixed scope · outcome-based</div>
+        <p>Pick one costly bottleneck or overpriced SaaS tool. I'll replace it with software you own.</p>
+        <ul>
+          <li>Interview the people who do the work</li>
+          <li>Map the process and find the real constraint</li>
+          <li>Build a focused solution with AI-native engineering and strong quality controls</li>
+          <li>Hand over working code you own outright</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="eyebrow">Approach</div>
+    <h2>Start with the work, not the technology.</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>Listen</h3>
+        <p>Talk with the people doing the work and map how it actually flows, using value stream mapping to find where time and money leak out.</p>
+      </div>
+      <div class="step">
+        <h3>Decide</h3>
+        <p>Clear recommendations with costs and trade-offs, including when the right answer is to leave something alone.</p>
+      </div>
+      <div class="step">
+        <h3>Deliver</h3>
+        <p>Lead the change or build it directly. AI speeds up the building; engineering discipline keeps it reliable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>Freddie Page</h2>
+      <p style="color:var(--muted);margin:6px 0 0">Founder &amp; Principal, Veritas Logic Systems</p>
+      <img class="headshot" src="freddie.jpg" alt="Freddie Page" width="720" height="900">
+      <ul class="creds">
+        <li>Enterprise technology leadership at Michelin</li>
+        <li>Engineering career that began at IBM</li>
+        <li>Microsoft Certified Solution Developer (MCSD)</li>
+        <li>J2EE certified</li>
+        <li>Based in Greenville, South Carolina</li>
+      </ul>
+    </div>
+    <div>
+      <!-- TODO: add years of experience and your most recent title at Michelin -->
+      <p>I've spent my career in enterprise technology, from writing code at IBM to leading architecture, cloud, and B2B distribution systems work at Michelin. Most recently I've been hands-on building AI systems and AI-assisted engineering practices, and seeing firsthand where they deliver and where they quietly create new problems.</p>
+      <p>I started Veritas Logic Systems because the way software gets built has changed faster than most companies can take advantage of it. Large enterprises have teams to sort that out. Growing companies usually don't, and they're the ones paying the most for software that was never built for them.</p>
+      <p><em>Veritas</em> means truth. My job is to tell you what's really going on with your technology, recommend what's worth doing, and then help get it done.</p>
+    </div>
+  </div>
+</section>
+
+<section id="writing">
+  <div class="wrap">
+    <div class="eyebrow">Writing</div>
+    <h2>Thinking out loud.</h2>
+    <div class="writing">
+      <h3>The Copilot Hangover</h3>
+      <p>A three-part series on AI-native engineering: why AI coding tools often drift and pile up hidden rework, and what it takes to get real productivity out of them. Coming soon.</p>
+      <!-- TODO: link each article as it's published; add your LinkedIn profile URL below -->
+      <div class="btns" style="margin-top:20px">
+        <a class="btn" href="https://www.linkedin.com/in/YOUR-PROFILE/">Follow on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>Let's talk about what's slowing you down.</h2>
+    <p class="lede">A 30-minute call, no pitch deck. If I'm not the right fit, I'll tell you and point you to someone who is.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://calendly.com/YOUR-LINK/intro">Book an intro call</a>
+      <a class="btn" href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</span>
+    <a href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a>
+  </div>
+</footer>
+
 </body>
 </html>
