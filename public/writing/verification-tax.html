@@ -152,7 +152,7 @@
 
 <nav>
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Veritas Logic Systems home">
+    <a class="brand" href="../index.html" aria-label="Veritas Logic Systems home">
       <svg viewBox="0 0 40 40" aria-hidden="true">
         <defs>
           <linearGradient id="vr" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
@@ -166,10 +166,10 @@
       <span class="wordmark">VERITAS <span class="logic">LOGIC</span> <span class="systems">SYSTEMS</span></span>
     </a>
     <div class="navlinks">
-      <a href="/#services">Services</a>
-      <a href="/#approach">Approach</a>
-      <a href="/#about">About</a>
-      <a href="/#contact">Contact</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#approach">Approach</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
     </div>
   </div>
 </nav>
@@ -181,7 +181,7 @@
     <p class="subtitle">AI is helping teams write more code than ever. Much of that gain is being spent checking it.</p>
     <p class="byline">Freddie Page · September 29, 2026</p>
 
-    <p><strong>Executive Summary:</strong> AI coding tools make individual developers faster, but that speed is not reliably reaching delivery. The clearest signal in the research is instability: pull requests are bigger, teams have far more code to review, and releases break more often. The cause is code that is locally correct but globally wrong. Each change looks right on its own, but it was written without the architectural and domain context your senior engineers carry in their heads. The organizations getting value from AI are the ones that give it that context and keep changes small enough to review.</p>
+    <p><strong>Executive Summary:</strong> AI coding tools make individual developers faster, but that speed isn't reliably reaching delivery. The clearest signal in the research is instability: pull requests are bigger, teams have far more code to review, and releases break more often. The cause is code that is locally correct but globally wrong. Each change looks right on its own, but it was written without the architectural and domain context your senior engineers carry in their heads. The organizations getting value from AI are the ones that give it that context and keep changes small enough to review.</p>
 
     <h2>The Productivity Paradox</h2>
     <p>The individual gains are real. In field experiments with nearly 5,000 developers at Microsoft, Accenture, and a Fortune 100 company, developers given an AI coding assistant completed about 26% more tasks <span class="cite">[1]</span>.</p>
@@ -189,9 +189,9 @@
     <p>Google's 2025 DORA report, based on a survey of nearly 5,000 technology professionals, is more positive about speed: unlike in 2024, higher AI adoption was associated with higher delivery throughput. On stability it agrees with Faros. In DORA's words, AI adoption "not only fails to fix instability, it is currently associated with increasing instability." The report's central conclusion is that AI amplifies whatever system it lands in, and that the greatest returns come "not from the tools themselves, but from a strategic focus on the underlying organizational system" <span class="cite">[3]</span>.</p>
     <p>So the research disagrees on speed and agrees on stability. Teams are producing much more code, releases are getting less stable, and a large share of the time AI saves is being spent checking its output. That cost is the verification tax.</p>
 
-    <h2>We Have Seen This Before</h2>
+    <h2>We've Seen This Before</h2>
     <p>Engineering leaders have seen this pattern before in <strong>the junior engineer who copies code from Stack Overflow without understanding the system it is going into</strong>. That engineer solves the local problem, writes a new utility instead of finding the existing one, and ships logic that works on the happy path but breaks team conventions.</p>
-    <p>AI assistants and agents working without context behave the same way. A junior engineer eventually learns the system, though. A model starts each session knowing only what it is given, so the context has to be supplied deliberately, every time.</p>
+    <p>AI assistants and agents working without context behave the same way. A junior engineer eventually learns the system, though. A model starts each session knowing only what it's given, so the context has to be supplied deliberately, every time.</p>
 
     <h3>What the Code Data Shows</h3>
     <p>GitClear's January 2026 analysis of 623 million code changes found copy/pasted code rising to 15.7% of changed lines, while refactored code fell to 3.8%, down from 21% in 2022 <span class="cite">[4]</span>. GitClear measures these trends across repositories rather than tagging individual AI-written commits, so the data shows a correlation with rising AI use rather than proof of cause.</p>
@@ -199,12 +199,12 @@
 
     <h2>The Verification Tax</h2>
     <p>When code is produced faster than people can review it, review becomes the constraint. DORA describes how the work changes for individual developers: it "shifts from manual grind to deciding and verifying," including "assessing code that looks remarkably similar to correct code" <span class="cite">[3]</span>.</p>
-    <p>AI-generated code is hard to review for a specific reason. Human mistakes tend to come with visible signs, such as messy formatting or half-finished logic. AI output reads cleanly, so the problems are in what it leaves out: an undocumented business rule, a security constraint, an existing service it should have reused. Reviewers have to check code that looks correct against knowledge that was never written down, and there is now far more of it to check.</p>
+    <p>AI-generated code is hard to review for a specific reason. Human mistakes tend to come with visible signs, such as messy formatting or half-finished logic. AI output reads cleanly, so the problems are in what it leaves out: an undocumented business rule, a security constraint, an existing service it should have reused. Reviewers have to check code that looks correct against knowledge that was never written down, and there's now far more of it to check.</p>
     <p>The load also spreads beyond the reviewer. When every team ships more changes, every neighboring team has more to absorb. DORA ties AI-era instability to the same pattern: more change volume without updated guardrails and "golden paths" raises verification and coordination costs, and teams that depend heavily on other teams stay unstable even after adopting AI <span class="cite">[3]</span>.</p>
 
     <h2>Context and Guardrails</h2>
     <p>When junior engineers leaned on Stack Overflow, good teams responded with context, patterns, and guardrails. AI needs the same, and the need grows as teams move from autocomplete to agents that change dozens of files in a single session.</p>
-    <p>Conway's Law says systems mirror the communication structures of the organizations that build them. For an AI agent, the communication structure is the context it can read. If domain boundaries and API contracts are written down, agents can follow them. If they live only in people's heads, agents cannot see them, and the code drifts.</p>
+    <p>Conway's Law says systems mirror the communication structures of the organizations that build them. For an AI agent, the communication structure is the context it can read. If domain boundaries and API contracts are written down, agents can follow them. If they live only in people's heads, agents can't see them, and the code drifts.</p>
     <ol>
       <li><strong>Engineer the context.</strong> Put architecture decisions, domain rules, API contracts, and conventions where the AI can read them: decision records, agent instruction files, and contract-first specifications. DORA found that AI's positive effect on individual effectiveness and code quality is amplified when AI tools can reach internal company data <span class="cite">[3]</span>.</li>
       <li><strong>Keep changes small.</strong> Break work into spec-sized units a person can review in one sitting. Working in small batches is one of seven capabilities DORA found make AI more effective, and teams that do it see AI's positive effect on product performance amplified <span class="cite">[3]</span>.</li>
@@ -213,12 +213,12 @@
     </ol>
 
     <h3>What This Looks Like in Practice</h3>
-    <p>I have seen these practices work firsthand. A fellow engineer designed an agentic development framework around them and used it to build a platform with backend services, a frontend, and a generated client SDK. Every significant architecture decision is written down as a decision record. Agents start each session from instruction files and a catalog of what already exists. Services are built contract-first, so the API specification comes before the code that implements it.</p>
-    <p>In my view, two problems can change the most. Before that structure is in place, agents can regularly drift from architectural decisions that have already been made, and changes can arrive in batches too large to review with confidence. Once decisions are recorded where agents read them, and work is broken into spec-sized units, drift should become the exception, and review time can go to design questions instead of cleanup. This is my own assessment rather than a controlled study, which is why I am testing it in public.</p>
+    <p>I've seen these practices work firsthand. A fellow engineer designed an agentic development framework around them and used it to build a platform with backend services, a frontend, and a generated client SDK. Every significant architecture decision is written down as a decision record. Agents start each session from instruction files and a catalog of what already exists. Services are built contract-first, so the API specification comes before the code that implements it.</p>
+    <p>In my view, two problems can change the most. Before that structure is in place, agents can regularly drift from architectural decisions that have already been made, and changes can arrive in batches too large to review with confidence. Once decisions are recorded where agents read them, and work is broken into spec-sized units, drift should become the exception, and review time can go to design questions instead of cleanup. This is my own assessment rather than a controlled study, which is why I'm testing it in public.</p>
 
-    <blockquote>Speed without architectural alignment is not productivity. It is just faster technical debt.</blockquote>
+    <blockquote>Speed without architectural alignment isn't productivity. It's just faster technical debt.</blockquote>
 
-    <p class="series">This is Part 1 of a 3-part series on the operational realities of AI-native engineering. <strong>Next up in Part 2:</strong> The Orchestrator's Fallacy: Why you still need to understand the code.</p>
+    <p class="series">This is Part 1 of a 3-part series on the operational realities of AI-native engineering. <strong>Next up in Part 2:</strong> <a href="orchestrators-fallacy.html">The Orchestrator's Fallacy: Why You Still Need to Understand the Code</a>.</p>
 
     <div class="btns">
       <a class="btn primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3itJ7WQUTJDpRIUZbXRk9bcd13dLENNc73EMfSvFaTPOqmMMOeS_WwQzUFJiwJd2upvNPxuTLP">Book an intro call</a>
@@ -238,7 +238,7 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</span>
-    <span style="display:flex;gap:20px"><a href="/privacy">Privacy</a><a href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a></span>
+    <span style="display:flex;gap:20px"><a href="../privacy.html">Privacy</a><a href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a></span>
   </div>
 </footer>
 

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Orchestrator's Fallacy: Why You Still Need to Understand the Code | Veritas Logic Systems</title>
+<meta name="description" content="Reading AI-generated code takes more skill than writing it. Part 2 of a series on AI-native engineering by Freddie Page.">
+<link rel="canonical" href="https://vls-tech.com/writing/orchestrators-fallacy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Orchestrator's Fallacy: Why You Still Need to Understand the Code">
+<meta property="og:description" content="Reading AI-generated code takes more skill than writing it, and when an agent gets something wrong, fixing the pull request is only the start.">
+<meta property="og:url" content="https://vls-tech.com/writing/orchestrators-fallacy">
+<meta property="og:image" content="https://vls-tech.com/writing/orchestrators-fallacy-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="The Orchestrator's Fallacy: AI-native engineering, Part 2, by Freddie Page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Freddie Page">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1120'/%3E%3Cpath d='M10 8 19.5 32' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M19.5 32 29 10' stroke='%2338BDF8' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='29' cy='10' r='3.6' fill='%2338BDF8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --void: #0B1120;
+    --surface: rgba(30, 41, 59, 0.7);
+    --slate: #1E293B;
+    --line: #334155;
+    --white: #FFFFFF;
+    --ink: #E2E8F0;
+    --muted: #94A3B8;
+    --sky: #38BDF8;
+    --royal: #1D4ED8;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--void); }
+  body {
+    margin: 0; color: var(--ink);
+    font: 400 17px/1.65 Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(900px 600px at 85% -10%, rgba(29, 78, 216, 0.18), transparent 60%),
+      radial-gradient(700px 500px at -10% 30%, rgba(56, 189, 248, 0.12), transparent 60%),
+      radial-gradient(800px 600px at 110% 85%, rgba(29, 78, 216, 0.15), transparent 60%),
+      var(--void);
+    background-attachment: fixed;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; font-weight: 800; line-height: 1.12; margin: 0; color: var(--white); letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); margin-bottom: 12px; }
+  h3 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.01em; }
+  .eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 16px; }
+  .pill { display: inline-block; padding: 7px 16px; border-radius: 9999px; background: var(--slate); border: 1px solid var(--line); margin-bottom: 28px; }
+  @media (max-width: 480px) { .pill { font-size: .68rem; letter-spacing: 1.2px; line-height: 1.5; padding: 8px 14px; border-radius: 14px; } }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; }
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+
+  /* Nav */
+  nav { padding: 20px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.6); position: sticky; top: 0; z-index: 10; background: rgba(11, 17, 32, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand svg { width: 34px; height: 34px; flex: none; }
+  .wordmark { font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: -0.5px; color: var(--white); white-space: nowrap; }
+  .wordmark .logic { color: var(--sky); }
+  .wordmark .systems { letter-spacing: 0.5px; }
+  .navlinks { display: flex; gap: 26px; font-size: .95rem; }
+  .navlinks a { text-decoration: none; color: var(--muted); transition: color .15s; }
+  .navlinks a:hover { color: var(--white); }
+  @media (max-width: 760px) { .navlinks { display: none; } }
+  @media (max-width: 380px) { .wordmark { font-size: .88rem; } }
+
+  /* Buttons */
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 8px; font-weight: 600; font-size: .98rem; text-decoration: none; border: 1px solid var(--line); color: var(--white); background: rgba(30, 41, 59, 0.5); transition: border-color .15s, box-shadow .15s, background .15s; }
+  .btn:hover { border-color: var(--sky); }
+  .btn.primary { background: var(--sky); border-color: var(--sky); color: var(--void); }
+  .btn.primary:hover { box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18), 0 8px 30px rgba(56, 189, 248, 0.25); }
+
+  /* Hero */
+  .hero { padding: 96px 0 104px; border-top: none; }
+  .hero .lede { margin-top: 22px; }
+
+  /* Audience */
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
+  .who { padding-top: 20px; border-top: 2px solid var(--sky); }
+  .who h3 { margin-bottom: 8px; }
+  .who p { margin: 0; color: var(--muted); }
+
+  /* Surfaces */
+  .card, .writing { background: var(--surface); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 12px; }
+  .card { padding: 28px; display: flex; flex-direction: column; transition: border-color .15s; }
+  .card:hover { border-color: rgba(56, 189, 248, 0.5); }
+  .tag { font-size: .74rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); margin: 8px 0 14px; }
+  .card p { margin: 0 0 14px; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--sky); }
+
+  /* Process */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; counter-reset: step; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step::before { counter-increment: step; content: "0" counter(step); font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800; font-size: 2rem; color: var(--sky); display: block; margin-bottom: 8px; }
+  .step p { color: var(--muted); margin: 8px 0 0; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 28px; } }
+  .headshot { display: block; width: 100%; max-width: 300px; height: auto; border-radius: 12px; margin-top: 24px; border: 1px solid var(--line); }
+  .creds { list-style: none; padding: 0; margin: 24px 0 0; }
+  .creds li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .95rem; color: var(--muted); }
+  .about p { margin: 0 0 16px; }
+  .about em { color: var(--sky); font-style: normal; font-weight: 600; }
+
+  /* Writing */
+  .writing { padding: 32px; margin-top: 32px; }
+  .writing p { color: var(--muted); margin: 10px 0 0; }
+
+  /* Contact */
+  .contact { background: radial-gradient(700px 400px at 20% 0%, rgba(56, 189, 248, 0.14), transparent 70%), radial-gradient(700px 400px at 90% 100%, rgba(29, 78, 216, 0.2), transparent 70%); }
+  footer { padding: 28px 0; font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--sky); }
+</style>
+<style>
+  .doc { padding: 72px 0 96px; }
+  .doc .wrap { max-width: 760px; }
+  .doc h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); margin-bottom: 8px; }
+  .doc h2 { font-size: 1.25rem; margin: 36px 0 10px; }
+  .doc p, .doc li { color: var(--ink); }
+  .doc .muted { color: var(--muted); }
+  .doc a:not(.btn) { color: var(--sky); }
+</style>
+<style>
+  .doc .subtitle { font-size: 1.2rem; color: var(--muted); margin: 14px 0 6px; }
+  .doc .byline { font-size: .92rem; color: var(--muted); margin-bottom: 36px; }
+  .doc h2 { font-size: 1.45rem; margin: 44px 0 12px; }
+  .doc h3 { margin: 32px 0 10px; }
+  .doc p { margin: 0 0 18px; }
+  .doc ol { padding-left: 22px; }
+  .doc ol li { margin-bottom: 12px; }
+  .doc ol li::marker { color: var(--sky); font-weight: 600; }
+  .doc ul { padding-left: 22px; }
+  .doc ul li { margin-bottom: 12px; }
+  .doc ul li::marker { color: var(--sky); }
+  .doc blockquote { margin: 28px 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--sky); color: var(--white); font-weight: 600; }
+  .doc .series { font-style: italic; color: var(--muted); }
+  .doc .refs li { font-size: .92rem; color: var(--muted); }
+  .doc sup, .doc .cite { color: var(--muted); font-size: .85em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Veritas Logic Systems home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="vr" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+          <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2"/></filter>
+        </defs>
+        <path d="M10 7.5 19.5 33" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+        <path d="M19.5 33 29.5 9" fill="none" stroke="url(#vr)" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="29.5" cy="9" r="4.5" fill="#38BDF8" opacity=".7" filter="url(#glow)"/>
+        <circle cx="29.5" cy="9" r="3.4" fill="#38BDF8"/>
+      </svg>
+      <span class="wordmark">VERITAS <span class="logic">LOGIC</span> <span class="systems">SYSTEMS</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#approach">Approach</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main class="doc">
+  <article class="wrap">
+    <div class="eyebrow">Writing · Part 2 of 3</div>
+    <h1>The Orchestrator's Fallacy: Why You Still Need to Understand the Code</h1>
+    <p class="subtitle">Reading AI-generated code takes more skill than writing it, and when an agent gets something wrong, fixing the pull request is only the start.</p>
+    <p class="byline">Freddie Page · October 6, 2026</p>
+
+    <p><strong>Executive Summary:</strong> There's a popular idea, captured in the phrase "vibe coding" <span class="cite">[1]</span>, that as AI agents take over code generation, engineers will become prompt writers who don't need to read the code anymore. The research says the opposite. In one controlled trial, experienced developers believed AI made them faster when it actually slowed them down <span class="cite">[3]</span>, two-thirds of developers say they've run into AI output that is almost right, but not quite <span class="cite">[4]</span>, and in one large study nearly half of AI-generated code samples had a security flaw <span class="cite">[5]</span>. Catching those problems takes more knowledge of the system than writing the code did. And when an agent gets something wrong, fixing the pull request is the easy half. The harder half is changing what the agent works from (its context, its checks, its templates) so the mistake is less likely to come back.</p>
+
+    <h2>The Code-Blind Orchestrator</h2>
+    <p>You've probably heard the pitch: engineers describe what they want, agents write it, and nobody has to read the code closely again. The idea took off in February 2025, when OpenAI co-founder Andrej Karpathy coined the term "vibe coding" for a way of working where you go with the flow and forget the code is even there <span class="cite">[1]</span>. He was describing his own quick, casual projects, but the phrase became shorthand for prompting and shipping without reading the code. Tellingly, he has since moved on. By 2026 he was drawing a clear line between vibe coding and what he calls agentic engineering, where the engineer does not blindly accept what the agent generates <span class="cite">[2]</span>.</p>
+    <p>The best evidence we have doesn't back it up. In a randomized controlled trial, METR gave 16 experienced open-source developers 246 real tasks in their own mature repositories, randomly allowing or disallowing AI tools for each one. With AI allowed, tasks took 19% longer, yet the developers believed AI had made them about 20% faster <span class="cite">[3]</span>. METR is clear that this is one setting with early-2025 tools, and newer tools may well do better. It's still a useful warning: on a large, real codebase, working with AI output carried real overhead, and even experts couldn't feel how much it was costing them.</p>
+    <p>Developers describe the cost directly. In Stack Overflow's 2025 survey, the most common frustration with AI tools, cited by 66% of respondents, was solutions that are almost right but not quite. The second most common, at 45%, was that debugging AI-generated code is more time-consuming. More developers distrust the accuracy of AI output (46%) than trust it (33%), and experienced developers are the most cautious group <span class="cite">[4]</span>.</p>
+    <p>Some of what gets missed is serious. Veracode tested code from more than 100 large language models across 80 coding tasks and found that 45% of samples introduced a known security flaw, with newer and larger models doing no better <span class="cite">[5]</span>. That code compiles and reads cleanly, so catching it takes automated scanning plus a reviewer who knows what the code was supposed to do.</p>
+
+    <h2>Reading Is Harder Than Writing</h2>
+    <p>Part 1 described AI output as locally correct but globally wrong: each change looks right on its own but was written without the context your senior engineers carry. That is exactly what makes it hard to review.</p>
+    <p>When you write code yourself, you build a mental model of the system as you go. When you review generated code, you have to rebuild that model from the outside and then check the code against it. Mostly you're looking for what isn't there. In some cases, AI-generated code handles each state change correctly on its own but never makes those operations idempotent. When the same request arrives more than once, the state change runs again and breaks the system. The fix is making those operations idempotent, so a repeated request leaves the system exactly where it was. None of that shows up in a clean diff unless you already know how the system behaves.</p>
+    <p>That's why I think the code-blind orchestrator idea has it backwards. Directing agents well takes more technical depth than writing the code yourself. Good specs and prompts matter, and they're worth getting better at, but they sit on top of engineering judgment. If you can't trace how data moves through the system, you can't tell good output from almost-right output, and almost-right is what makes it to production.</p>
+
+    <h2>Guardrails Were Never About AI</h2>
+    <p>None of the safeguards that help here are new. Good engineering teams have long relied on automated checks so people don't have to catch everything by eye. The architectural version is what Neal Ford, Rebecca Parsons, and their co-authors call fitness functions: automated tests that give an objective read on whether the system still has the qualities you care about. In a 2025 conversation about AI, Ford described writing architecture rules as pseudocode and having generative AI turn them into fitness functions that run in the build pipeline <span class="cite">[6]</span>.</p>
+    <p>What AI changes is the speed at which their absence hurts. When people write code slowly, duplication and drift build up slowly. When agents produce changes far faster than people can read them, the same gaps compound much faster. GitClear's analysis of 623 million code changes shows the trend: copy/pasted code rose to 15.7% of changed lines while refactored code fell to 3.8%, down from 21% in 2022 <span class="cite">[7]</span>. As Part 1 noted, that's a correlation with rising AI use, not proof of cause.</p>
+    <p>The gates worth having are the same ones you would want for any team:</p>
+    <ul>
+      <li><strong>Contract and schema checks</strong> at API and data boundaries, so a change that breaks an agreement between services fails before anyone reviews it.</li>
+      <li><strong>Architecture checks</strong> for dependency and layering rules, plus a duplication threshold, so drift fails the build instead of waiting for someone to notice it.</li>
+      <li><strong>Security scanning on every change.</strong> Given the Veracode numbers, this one isn't optional <span class="cite">[5]</span>.</li>
+    </ul>
+    <p>None of these should care who wrote the change. A junior engineer, a senior engineer, and an agent all go through the same gates.</p>
+    <p>Thoughtworks lands in a similar place in its 2026 Looking Glass report: humans and AI should build software together, engineers stay responsible for architectural integrity, and governance belongs in the delivery pipeline rather than in someone's head. It also puts the typical delivery gain it sees from AI at up to 15%, far below what these tools are usually sold on <span class="cite">[8]</span>. Productivity numbers vary widely by study and setting, which is itself the point: the gains depend on the system they land in.</p>
+
+    <h2>Fix the PR, Then Fix the System</h2>
+    <p>When a junior engineer introduced a messy pattern, a senior engineer often fixed it in review, explained why, and the junior did better next time. That loop does not work with an agent. As Part 1 noted, a model starts each session knowing only what it is given. Correct it in a review comment and it is likely to make the same mistake tomorrow.</p>
+    <p>The pull request still has to be fixed before it ships. The more useful question comes after that: why did the agent do it? In my experience the answer usually falls into one of these buckets.</p>
+    <ul>
+      <li><strong>It didn't know.</strong> The agent had no way of knowing an internal service already existed, or what a domain rule was. Put it where the agent reads: a decision record, an instruction file, a catalog of existing services.</li>
+      <li><strong>Nothing stopped it.</strong> The rule was known but never enforced. Turn it into a test or fitness function so the build fails next time.</li>
+      <li><strong>It keeps happening.</strong> The same kind of mistake shows up across changes, which usually means the template or golden path the agent starts from is wrong. DORA found a direct link between the quality of an organization's internal platform and how much value it gets from AI <span class="cite">[9]</span>.</li>
+    </ul>
+    <p>Sometimes it's simpler than that: the spec left a gap and the agent filled it. Tighten the spec, and keep the work small enough to review in one sitting.</p>
+    <p>A caveat: models are probabilistic, so better instructions lower the odds of a repeat without ruling it out. That's why I want both, and why the test matters more. The instruction makes the mistake rarer, and the test catches it when it happens anyway.</p>
+
+    <p class="series">This is Part 2 of a 3-part series on the operational realities of AI-native engineering. Part 1: <a href="verification-tax.html">The Verification Tax: Faster AI Code, Less Stable Delivery</a>. <strong>Next up in Part 3:</strong> The 3-Person AI Pod: How to Save the Junior Engineer.</p>
+
+    <div class="btns">
+      <a class="btn primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3itJ7WQUTJDpRIUZbXRk9bcd13dLENNc73EMfSvFaTPOqmMMOeS_WwQzUFJiwJd2upvNPxuTLP">Book an intro call</a>
+      <a class="btn" href="https://www.linkedin.com/in/freddiepage/">Follow on LinkedIn</a>
+    </div>
+
+    <h2>References</h2>
+    <ol class="refs">
+      <li><a href="https://x.com/karpathy/status/1886192184808149383">Andrej Karpathy, post on X introducing "vibe coding" (February 2, 2025)</a>: the post that coined the term.</li>
+      <li><a href="https://karpathy.bearblog.dev/sequoia-ascent-2026/">Andrej Karpathy, "Sequoia Ascent 2026: Software 3.0, Agentic Engineering, and Jagged Intelligence" (April 2026)</a>: Karpathy's own summary of his Sequoia AI Ascent fireside chat.</li>
+      <li><a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">Becker, Rush, Barnes &amp; Rein, "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity," METR (July 2025)</a>: randomized controlled trial, 16 developers, 246 tasks.</li>
+      <li><a href="https://survey.stackoverflow.co/2025/ai">Stack Overflow, "2025 Developer Survey: AI" (2025)</a>: about 49,000 respondents.</li>
+      <li><a href="https://www.veracode.com/resources/analyst-reports/2025-genai-code-security-report/">Veracode, "2025 GenAI Code Security Report" (2025)</a>: 100+ large language models, 80 coding tasks.</li>
+      <li><a href="https://www.thoughtworks.com/insights/podcasts/technology-podcasts/how-fitness-functions-help-govern-measure-ai">Thoughtworks Technology Podcast, "How fitness functions can help us govern and measure AI," with Neal Ford and Rebecca Parsons (March 2025)</a>: two of the authors of <em>Building Evolutionary Architectures</em> on applying fitness functions to AI.</li>
+      <li><a href="https://www.gitclear.com/the_ai_code_quality_maintainability_gap">GitClear, "The Maintainability Gap: 2026 AI Code Quality Research" (January 2026)</a>: 623 million code changes, 2023–2026.</li>
+      <li><a href="https://www.thoughtworks.com/en-us/insights/looking-glass/looking-glass-2026/AI-and-software-delivery">Thoughtworks, "Looking Glass 2026: AI and Software Delivery" (January 2026)</a>: Thoughtworks' annual technology trends report.</li>
+      <li><a href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">Google Cloud DORA, "State of AI-assisted Software Development" (2025)</a>: survey of nearly 5,000 technology professionals.</li>
+    </ol>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</span>
+    <span style="display:flex;gap:20px"><a href="../privacy.html">Privacy</a><a href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
