@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 3-Person AI Pod: How to Save the Junior Engineer | Veritas Logic Systems</title>
+<meta name="description" content="AI is taking over the work junior engineers used to learn on. A team structure that keeps the pipeline open. Part 3 of a series on AI-native engineering by Freddie Page.">
+<link rel="canonical" href="https://vls-tech.com/writing/three-person-ai-pod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The 3-Person AI Pod: How to Save the Junior Engineer">
+<meta property="og:description" content="AI is taking over the work junior engineers used to learn on. Here's a team structure that keeps the pipeline open.">
+<meta property="og:url" content="https://vls-tech.com/writing/three-person-ai-pod">
+<meta property="og:image" content="https://vls-tech.com/writing/three-person-ai-pod-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="The 3-Person AI Pod: AI-native engineering, Part 3, by Freddie Page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Freddie Page">
+<meta name="theme-color" content="#0B1120">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%230B1120'/%3E%3Cpath d='M10 8 19.5 32' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M19.5 32 29 10' stroke='%2338BDF8' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='29' cy='10' r='3.6' fill='%2338BDF8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --void: #0B1120;
+    --surface: rgba(30, 41, 59, 0.7);
+    --slate: #1E293B;
+    --line: #334155;
+    --white: #FFFFFF;
+    --ink: #E2E8F0;
+    --muted: #94A3B8;
+    --sky: #38BDF8;
+    --royal: #1D4ED8;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--void); }
+  body {
+    margin: 0; color: var(--ink);
+    font: 400 17px/1.65 Inter, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(900px 600px at 85% -10%, rgba(29, 78, 216, 0.18), transparent 60%),
+      radial-gradient(700px 500px at -10% 30%, rgba(56, 189, 248, 0.12), transparent 60%),
+      radial-gradient(800px 600px at 110% 85%, rgba(29, 78, 216, 0.15), transparent 60%),
+      var(--void);
+    background-attachment: fixed;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; font-weight: 800; line-height: 1.12; margin: 0; color: var(--white); letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); margin-bottom: 12px; }
+  h3 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.01em; }
+  .eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 16px; }
+  .pill { display: inline-block; padding: 7px 16px; border-radius: 9999px; background: var(--slate); border: 1px solid var(--line); margin-bottom: 28px; }
+  @media (max-width: 480px) { .pill { font-size: .68rem; letter-spacing: 1.2px; line-height: 1.5; padding: 8px 14px; border-radius: 14px; } }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; }
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+
+  /* Nav */
+  nav { padding: 20px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.6); position: sticky; top: 0; z-index: 10; background: rgba(11, 17, 32, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand svg { width: 34px; height: 34px; flex: none; }
+  .wordmark { font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: -0.5px; color: var(--white); white-space: nowrap; }
+  .wordmark .logic { color: var(--sky); }
+  .wordmark .systems { letter-spacing: 0.5px; }
+  .navlinks { display: flex; gap: 26px; font-size: .95rem; }
+  .navlinks a { text-decoration: none; color: var(--muted); transition: color .15s; }
+  .navlinks a:hover { color: var(--white); }
+  @media (max-width: 760px) { .navlinks { display: none; } }
+  @media (max-width: 380px) { .wordmark { font-size: .88rem; } }
+
+  /* Buttons */
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 8px; font-weight: 600; font-size: .98rem; text-decoration: none; border: 1px solid var(--line); color: var(--white); background: rgba(30, 41, 59, 0.5); transition: border-color .15s, box-shadow .15s, background .15s; }
+  .btn:hover { border-color: var(--sky); }
+  .btn.primary { background: var(--sky); border-color: var(--sky); color: var(--void); }
+  .btn.primary:hover { box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18), 0 8px 30px rgba(56, 189, 248, 0.25); }
+
+  /* Hero */
+  .hero { padding: 96px 0 104px; border-top: none; }
+  .hero .lede { margin-top: 22px; }
+
+  /* Audience */
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
+  .who { padding-top: 20px; border-top: 2px solid var(--sky); }
+  .who h3 { margin-bottom: 8px; }
+  .who p { margin: 0; color: var(--muted); }
+
+  /* Surfaces */
+  .card, .writing { background: var(--surface); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 12px; }
+  .card { padding: 28px; display: flex; flex-direction: column; transition: border-color .15s; }
+  .card:hover { border-color: rgba(56, 189, 248, 0.5); }
+  .tag { font-size: .74rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); margin: 8px 0 14px; }
+  .card p { margin: 0 0 14px; }
+  .card ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--sky); }
+
+  /* Process */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; counter-reset: step; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step::before { counter-increment: step; content: "0" counter(step); font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800; font-size: 2rem; color: var(--sky); display: block; margin-bottom: 8px; }
+  .step p { color: var(--muted); margin: 8px 0 0; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .about { grid-template-columns: 1fr; gap: 28px; } }
+  .headshot { display: block; width: 100%; max-width: 300px; height: auto; border-radius: 12px; margin-top: 24px; border: 1px solid var(--line); }
+  .creds { list-style: none; padding: 0; margin: 24px 0 0; }
+  .creds li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .95rem; color: var(--muted); }
+  .about p { margin: 0 0 16px; }
+  .about em { color: var(--sky); font-style: normal; font-weight: 600; }
+
+  /* Writing */
+  .writing { padding: 32px; margin-top: 32px; }
+  .writing p { color: var(--muted); margin: 10px 0 0; }
+
+  /* Contact */
+  .contact { background: radial-gradient(700px 400px at 20% 0%, rgba(56, 189, 248, 0.14), transparent 70%), radial-gradient(700px 400px at 90% 100%, rgba(29, 78, 216, 0.2), transparent 70%); }
+  footer { padding: 28px 0; font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--sky); }
+</style>
+<style>
+  .doc { padding: 72px 0 96px; }
+  .doc .wrap { max-width: 760px; }
+  .doc h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); margin-bottom: 8px; }
+  .doc h2 { font-size: 1.25rem; margin: 36px 0 10px; }
+  .doc p, .doc li { color: var(--ink); }
+  .doc .muted { color: var(--muted); }
+  .doc a:not(.btn) { color: var(--sky); }
+</style>
+<style>
+  .doc .subtitle { font-size: 1.2rem; color: var(--muted); margin: 14px 0 6px; }
+  .doc .byline { font-size: .92rem; color: var(--muted); margin-bottom: 36px; }
+  .doc h2 { font-size: 1.45rem; margin: 44px 0 12px; }
+  .doc h3 { margin: 32px 0 10px; }
+  .doc p { margin: 0 0 18px; }
+  .doc ol { padding-left: 22px; }
+  .doc ol li { margin-bottom: 12px; }
+  .doc ol li::marker { color: var(--sky); font-weight: 600; }
+  .doc ul { padding-left: 22px; }
+  .doc ul li { margin-bottom: 12px; }
+  .doc ul li::marker { color: var(--sky); }
+  .doc blockquote { margin: 28px 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--sky); color: var(--white); font-weight: 600; }
+  .doc .series { font-style: italic; color: var(--muted); }
+  .doc .refs li { font-size: .92rem; color: var(--muted); }
+  .doc sup, .doc .cite { color: var(--muted); font-size: .85em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Veritas Logic Systems home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="vr" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+          <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2"/></filter>
+        </defs>
+        <path d="M10 7.5 19.5 33" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+        <path d="M19.5 33 29.5 9" fill="none" stroke="url(#vr)" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="29.5" cy="9" r="4.5" fill="#38BDF8" opacity=".7" filter="url(#glow)"/>
+        <circle cx="29.5" cy="9" r="3.4" fill="#38BDF8"/>
+      </svg>
+      <span class="wordmark">VERITAS <span class="logic">LOGIC</span> <span class="systems">SYSTEMS</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#approach">Approach</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main class="doc">
+  <article class="wrap">
+    <div class="eyebrow">Writing · Part 3 of 3</div>
+    <h1>The 3-Person AI Pod: How to Save the Junior Engineer</h1>
+    <p class="subtitle">AI is taking over the work junior engineers used to learn on. If companies stop hiring them, they'll eventually run out of senior engineers. Here's a team structure that keeps the pipeline open.</p>
+    <p class="byline">Freddie Page · October 13, 2026</p>
+
+    <p><strong>Executive Summary:</strong> Early-career software developers are the group most exposed to AI so far. One Stanford study found that employment for developers aged 22 to 25 fell nearly 20% from its late-2022 peak <span class="cite">[1]</span>. The tempting response is to stop hiring juniors and let a smaller senior team direct the agents. That saves money this year and creates a shortage of senior engineers later, because every senior engineer starts as a junior one. Handing juniors AI tools isn't enough on its own, either: in a controlled study, developers who used AI help while learning a new library scored 17 percentage points lower on a comprehension test than those who coded by hand <span class="cite">[2]</span>. I'm proposing a small, deliberate team structure: a three-person pod with a Primary, a Backup, and an Apprentice, where the Apprentice learns by doing real work under close review rather than by watching.</p>
+
+    <h2>The Two-Pizza Team, Revisited</h2>
+    <p>Amazon's well-known rule is that no team should be bigger than two pizzas can feed. In practice that means fewer than 10 people, with each team owning a single service end to end <span class="cite">[3]</span>. Amazon itself says the rule is less about size than about pushing ownership down to the team. Small teams spend less time coordinating and more time shipping.</p>
+    <p>AI changes the work inside the team more than the principle behind it. When agents handle scaffolding, tests, and boilerplate, a team needs fewer people typing and more people deciding and reviewing. Matthew Skelton and Manuel Pais, the authors of <em>Team Topologies</em>, expect teams may get somewhat smaller, but they're clear that the real limit is still cognitive load: how much of the system a team can hold in its head <span class="cite">[4]</span>. AI doesn't raise that limit, and as Part 2 argued, someone still has to understand what the agents write.</p>
+    <p>The more useful question is what a small team needs to stay good, and to keep producing the engineers it will need five years from now.</p>
+
+    <h2>The Pipeline Problem</h2>
+    <p>Entry-level developers are where the change shows up first. Using payroll records from ADP, the largest payroll provider in the US, Erik Brynjolfsson, Bharat Chandar, and Ruyu Chen found that early-career workers in the most AI-exposed jobs saw a 13% relative decline in employment, even after accounting for company-level changes. For software developers aged 22 to 25, employment fell nearly 20% between late 2022 and July 2025, while older workers in the same jobs held steady or grew <span class="cite">[1]</span>. The authors say plainly that AI probably isn't the whole explanation, since a lot else changed in the economy at the same time. But the decline is concentrated on exactly the people who would have become your senior engineers.</p>
+    <p>The short-term logic is easy to follow. If one senior engineer with good agents can do what a senior and two juniors used to, why hire the juniors? AWS CEO Matt Garman's answer in 2025 was blunt: he called replacing junior staff with AI "the dumbest thing I've ever heard." His reasoning was that juniors are among the least expensive people a company employs and often the most comfortable with AI tools, and that if you stop hiring them, in ten years nobody will have learned anything <span class="cite">[5]</span>.</p>
+    <p>There's a second problem. Juniors used to build judgment through the mechanical work: writing tests, fixing small bugs, and finding out the hard way how the system behaves. AI now does much of that work, and giving juniors AI doesn't automatically replace the learning. In an Anthropic study of 52 mostly junior engineers learning an unfamiliar Python library, the group with AI help averaged 50% on a follow-up quiz, compared with 67% for the group that coded by hand. The biggest gap was on debugging, and the AI group wasn't meaningfully faster. The participants who scored well with AI used it to explain things, not just to write the code <span class="cite">[2]</span>.</p>
+    <p>So the work juniors used to learn on is going away, and AI used carelessly doesn't teach the skill that matters most: understanding what the code actually does.</p>
+
+    <h2>The Three-Person Pod</h2>
+    <p>The structure I'd use for AI-heavy work is three people, each with a clear job.</p>
+    <ul>
+      <li><strong>The Primary.</strong> A senior engineer who owns the design. They write the specs, break the work into pieces small enough to review, and direct the agents. They're accountable for what ships.</li>
+      <li><strong>The Backup.</strong> A mid-level or senior engineer who reviews what the agents and the Primary produce, keeps the pod's context and checks current, and can take over at any time. With two people who fully understand the system, the pod has no single point of failure.</li>
+      <li><strong>The Apprentice.</strong> An early-career engineer who does real work from the first week.</li>
+    </ul>
+    <p>The Apprentice is what makes this different from a smaller senior team, and it's the easiest role to get wrong. An apprentice who mostly watches seniors work won't learn to read code the way Part 2 describes, because watching someone debug doesn't teach you to debug. So the Apprentice should:</p>
+    <ul>
+      <li>own small, well-defined specs end to end, using agents, with the Primary reviewing;</li>
+      <li>do the first review of agent-generated changes before the Backup sees them, and explain what they found;</li>
+      <li>write tests and fitness functions, which forces them to learn what the system is supposed to do;</li>
+      <li>take the first pass at bugs and production issues, with a senior close by.</li>
+    </ul>
+    <p>The Anthropic study also points to how the Apprentice should use AI: to explain as well as generate, and to work through errors themselves before asking for the answer <span class="cite">[2]</span>. The pod can teach that habit, and the Primary can look for it in review.</p>
+    <p>A pod also gives the Apprentice something larger teams often don't: two experienced people paying close attention to their work every day. On an eight-person team, a junior can stay on the edges for months without anyone noticing. In a pod of three, someone notices within a week.</p>
+    <p>This is a proposal rather than something I've measured, which is why I'm laying it out in public.</p>
+
+    <h2>What the Pod Needs From the Platform</h2>
+    <p>A three-person team can't also build its own agent environment, test sandboxes, and guardrails. Part 1 argued that platform teams should treat agents as customers, giving them governed access to models, shared context, and golden paths. DORA found that the quality of an organization's internal platform is directly linked to how much value it gets from AI <span class="cite">[6]</span>.</p>
+    <p>For a pod, that means:</p>
+    <ul>
+      <li><strong>A safe place for agents to run</strong>, with test data and mocked services, so an apprentice's mistakes can't reach production.</li>
+      <li><strong>Shared context</strong>, such as decision records, instruction files, and a catalog of existing services, maintained once rather than by every pod.</li>
+      <li><strong>The checks from Part 2</strong>: contract checks, architecture checks, and security scanning on every change.</li>
+    </ul>
+    <p>Skelton and Pais also have a useful point about how to spread new practices. Rather than doing the work for product teams, an enabling team should help them see what's available and where their gaps are <span class="cite">[4]</span>. That's a good model for sharing AI practices across pods without turning one central team into a bottleneck.</p>
+
+    <h2>If You Don't Have a Platform Team</h2>
+    <p>Many growing companies have a handful of engineers and no platform team at all. The pod still works at that size; the platform just gets smaller. One pod may be most of the engineering team, and the Backup often doubles as the person who owns the tooling. A few adjustments help:</p>
+    <ul>
+      <li><strong>Set up the checks first.</strong> Automated contract, architecture, and security checks do more for a small team than new job titles.</li>
+      <li><strong>Keep shared context in the repository</strong>, where both agents and people read it.</li>
+      <li><strong>Use what you can buy.</strong> Managed CI, hosted test environments, and off-the-shelf security scanning cover much of what a platform team would otherwise build.</li>
+      <li><strong>Hire the Apprentice anyway.</strong> It's tempting to skip when the team is small, but small teams feel it most when a senior engineer leaves and nobody else knows the system.</li>
+    </ul>
+
+    <blockquote>The engineers who will run your systems in ten years are early in their careers now. Whether they're ready depends on whether someone gives them real work and close review today.</blockquote>
+
+    <p class="series">This is Part 3 of a 3-part series on the operational realities of AI-native engineering. Part 1: <a href="verification-tax.html">The Verification Tax: Faster AI Code, Less Stable Delivery</a>. Part 2: <a href="orchestrators-fallacy.html">The Orchestrator's Fallacy: Why You Still Need to Understand the Code</a>.</p>
+
+    <div class="btns">
+      <a class="btn primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3itJ7WQUTJDpRIUZbXRk9bcd13dLENNc73EMfSvFaTPOqmMMOeS_WwQzUFJiwJd2upvNPxuTLP">Book an intro call</a>
+      <a class="btn" href="https://www.linkedin.com/in/freddiepage/">Follow on LinkedIn</a>
+    </div>
+
+    <h2>References</h2>
+    <ol class="refs">
+      <li><a href="https://siepr.stanford.edu/publications/working-paper/canaries-coal-mine-six-facts-about-recent-employment-effects-artificial">Brynjolfsson, Chandar &amp; Chen, "Canaries in the Coal Mine? Six Facts about the Recent Employment Effects of Artificial Intelligence," Stanford Digital Economy Lab (August 2025)</a>: ADP payroll data on employment by age and AI exposure.</li>
+      <li><a href="https://www.anthropic.com/research/AI-assistance-coding-skills">Anthropic, "How AI assistance impacts the formation of coding skills" (January 2026)</a>: randomized study of 52 mostly junior engineers.</li>
+      <li><a href="https://aws.amazon.com/executive-insights/content/amazon-two-pizza-team/">Amazon Web Services, "Amazon's Two Pizza Teams"</a>: Amazon's description of the team model.</li>
+      <li><a href="https://www.thoughtworks.com/insights/podcasts/technology-podcasts/organizational-design-team-topologies-ai">Thoughtworks Technology Podcast, "Organizational design and Team Topologies after AI," with Matthew Skelton and Manuel Pais (September 2025)</a>: the <em>Team Topologies</em> authors on team size and cognitive load with AI.</li>
+      <li><a href="https://www.theregister.com/2025/08/21/aws_ceo_entry_level_jobs_opinion/">The Register, "AWS CEO says using AI to replace junior staff is 'Dumbest thing I've ever heard'" (August 2025)</a>: coverage of Matt Garman's interview with Matthew Berman.</li>
+      <li><a href="https://services.google.com/fh/files/misc/2025_state_of_ai_assisted_software_development.pdf">Google Cloud DORA, "State of AI-assisted Software Development" (2025)</a>: survey of nearly 5,000 technology professionals.</li>
+    </ol>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Veritas Logic Systems LLC · Greenville, South Carolina</span>
+    <span style="display:flex;gap:20px"><a href="../privacy.html">Privacy</a><a href="mailto:freddiepage@vls-tech.com">freddiepage@vls-tech.com</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
