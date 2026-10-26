@@ -125,6 +125,8 @@
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   footer a { text-decoration: none; }
   footer a:hover { color: var(--sky); }
+  .contact .email { color: var(--sky); font-weight: 600; }
+  button.btn { font: inherit; font-weight: 600; font-size: .98rem; cursor: pointer; }
 
   /* Product */
   .status { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-size: .9rem; color: var(--muted); }
@@ -169,7 +171,7 @@
     <p class="lede">Veritas Logic Systems is an AI software studio and product company, backed by more than 20 years of enterprise engineering. We build proprietary applications, starting with <strong style="color:var(--white)">Veristep</strong>: AI-led process discovery that shows growing companies how their work really flows and where it stalls.</p>
     <div class="btns">
       <a class="btn primary" href="#veristep">Meet Veristep</a>
-      <a class="btn" href="mailto:freddiepage@vls-tech.com?subject=Veristep">Get in touch</a>
+      <a class="btn" href="#contact">Get in touch</a>
     </div>
   </div>
 </header>
@@ -217,7 +219,7 @@
         <h3>See it on your process</h3>
         <p>Have a process that everyone describes differently? Tell us about it and we'll show you how Veristep would map it.</p>
         <div class="btns" style="margin-top:auto;padding-top:20px">
-          <a class="btn primary" href="mailto:freddiepage@vls-tech.com?subject=Veristep">Get in touch</a>
+          <a class="btn primary" href="#contact">Get in touch</a>
         </div>
       </div>
     </div>
@@ -334,10 +336,11 @@
   <div class="wrap">
     <div class="eyebrow">Contact</div>
     <h2>Interested in Veristep?</h2>
-    <p class="lede">Get in touch to learn more about Veristep or talk about the process you want to understand. For advisory work, book a call below.</p>
+    <p class="lede">Book a 30-minute call to learn more about Veristep, talk about the process you want to understand, or discuss advisory work. Prefer email? Write to <a class="email" href="mailto:freddiepage@vls-tech.com?subject=Veristep">freddiepage@vls-tech.com</a>.</p>
     <div class="btns">
-      <a class="btn primary" href="mailto:freddiepage@vls-tech.com?subject=Veristep">freddiepage@vls-tech.com</a>
-      <a class="btn" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3itJ7WQUTJDpRIUZbXRk9bcd13dLENNc73EMfSvFaTPOqmMMOeS_WwQzUFJiwJd2upvNPxuTLP">Book an advisory call</a>
+      <a class="btn primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3itJ7WQUTJDpRIUZbXRk9bcd13dLENNc73EMfSvFaTPOqmMMOeS_WwQzUFJiwJd2upvNPxuTLP">Book a call</a>
+      <a class="btn" href="mailto:freddiepage@vls-tech.com?subject=Veristep">Email us</a>
+      <button class="btn" type="button" id="copy-email" data-email="freddiepage@vls-tech.com">Copy email address</button>
     </div>
   </div>
 </section>
@@ -349,5 +352,13 @@
   </div>
 </footer>
 
+<script>
+  document.getElementById('copy-email').addEventListener('click', function () {
+    var b = this, email = b.dataset.email;
+    var done = function () { b.textContent = 'Copied: ' + email; };
+    if (navigator.clipboard) navigator.clipboard.writeText(email).then(done, function () { b.textContent = email; });
+    else b.textContent = email;
+  });
+</script>
 </body>
 </html>
